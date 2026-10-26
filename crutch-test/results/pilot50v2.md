@@ -1,5 +1,7 @@
 # PILOT report: pilot50v2
 
+**Split:** dev, 50 problems, 1 dialog per arm.
+
 **Decision:** NO-GO for now (failing: 300-problem audit <= 12 A100-hours). Fix it for up to two days, then try the Qwen3-8B student.
 
 **Framing:** The masked student does not pay for copied answers (M: T-N >= -0.02), the gap the project set out to test.
@@ -92,6 +94,29 @@ Does practice volume matter? Spearman correlation across all dialogs between tra
 Learning-rate calibration (median loss drop on N and H): 0.03: 7.0%, 0.1: 42.5%, 0.3: -2612.6%, 1.0: -5486.4%, 3.0: -18023.8%. GPU time: train 22 min, sample 33 min.
 
 Cost of these views: $1.16.
+
+## Pass rules P1-P4, unadjusted and with Holm's correction
+
+Each view is one family: Holm's step-down correction over P1-P3 at 5%. p is the bootstrap p-value of the rule's interval (twice the share of resampled means past the boundary), so p < 0.05 matches the interval verdict. P2 also needs T - N <= -0.03. P4 exists only for L; it is a point rule (within +/-0.03), reported unadjusted.
+
+| View | Rule | Estimate [95% CI] | p | Holm p | Pass | Pass (Holm) |
+|---|---|---|---|---|---|---|
+| U | P1 practice up (P: T - N) | +0.574 [+0.464, +0.681] | <0.001 | <0.001 | pass | pass |
+| U | P2 test down (T - N) | +0.315 [+0.198, +0.428] | 1.000 | 1.000 | fail | fail |
+| U | P3 hints safe (H - N) | +0.254 [+0.151, +0.357] | <0.001 | <0.001 | pass | pass |
+| M | P1 practice up (P: T - N) | +0.574 [+0.464, +0.681] | <0.001 | <0.001 | pass | pass |
+| M | P2 test down (T - N) | +0.122 [+0.036, +0.209] | 1.000 | 1.000 | fail | fail |
+| M | P3 hints safe (H - N) | +0.133 [+0.041, +0.225] | <0.001 | 0.002 | pass | pass |
+| C | P1 practice up (P: T - N) | +0.574 [+0.464, +0.681] | <0.001 | <0.001 | pass | pass |
+| C | P2 test down (T - N) | +0.145 [+0.052, +0.233] | 1.000 | 1.000 | fail | fail |
+| C | P3 hints safe (H - N) | +0.168 [+0.065, +0.270] | <0.001 | <0.001 | pass | pass |
+| K | P1 practice up (P: T - N) | +0.574 [+0.464, +0.681] | <0.001 | <0.001 | pass | pass |
+| K | P2 test down (T - N) | +0.060 [+0.003, +0.120] | 1.000 | 1.000 | fail | fail |
+| K | P3 hints safe (H - N) | +0.018 [-0.041, +0.079] | 0.118 | 0.236 | fail | fail |
+| L | P1 practice up (P: T - N) | +0.574 [+0.464, +0.681] | <0.001 | <0.001 | pass | pass |
+| L | P2 test down (T - N) | -0.022 [-0.074, +0.028] | 0.405 | 0.405 | fail | fail |
+| L | P3 hints safe (H - N) | +0.005 [-0.039, +0.050] | 0.122 | 0.243 | fail | fail |
+| L | P4 no drift (unrelated: T - N) | +0.065 [-0.005, +0.133] | n/a | n/a (point rule) | fail | fail |
 
 ## Dialog health
 

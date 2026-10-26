@@ -23,7 +23,7 @@ The frozen simulators (M, C, K) gain from being told the answer, where students 
 
 ## Reproduce
 
-Linux, macOS or WSL; no GPU and no API key. Setup builds a venv and downloads EduardoRL, the dataset and the trial's log (about 2 minutes):
+Linux, macOS or WSL; no GPU and no API key. Setup builds a venv and downloads EduardoRL, the dataset and the trial's log (about 2 minutes). Where `python3 -m venv` is missing, the setup step in [`crutch-test/README.md`](crutch-test/README.md) shows how to use uv instead.
 
 ```bash
 crutch-test/setup.sh
