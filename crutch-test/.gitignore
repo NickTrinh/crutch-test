@@ -1,0 +1,5 @@
+.venv/
+.deps/
+.data/
+runs/
+__pycache__/

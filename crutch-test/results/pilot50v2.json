@@ -1,0 +1,541 @@
+{
+  "gates": {
+    "practice: P(T) - P(N) >= +0.20": true,
+    "judge: handover T >= 80%": true,
+    "judge: handover H <= 20%": true,
+    "pre-test within 0.05 of the dataset": true,
+    "300-problem audit <= 12 A100-hours": false
+  },
+  "decision": "NO-GO for now (failing: 300-problem audit <= 12 A100-hours). Fix it for up to two days, then try the Qwen3-8B student.",
+  "framing": "The masked student does not pay for copied answers (M: T-N >= -0.02), the gap the project set out to test.",
+  "arms": {
+    "N": {
+      "dialogs": 50,
+      "handover_rate": 0.0,
+      "tutor_turns": 5.7,
+      "blanked_turns": 0.0,
+      "failed_student_calls": 0,
+      "student_calls": 3200,
+      "failed_dialogs": 0,
+      "unboxed_answers": 144,
+      "end_reasons": {
+        "end_of_conversation": 50
+      },
+      "means": {
+        "P": 0.285,
+        "U": 0.325,
+        "M": 0.33125,
+        "Ms": 0.285
+      },
+      "posed_new_problem": 0
+    },
+    "H": {
+      "dialogs": 50,
+      "handover_rate": 0.0,
+      "tutor_turns": 5.7,
+      "blanked_turns": 0.0,
+      "failed_student_calls": 0,
+      "student_calls": 3200,
+      "failed_dialogs": 0,
+      "unboxed_answers": 119,
+      "end_reasons": {
+        "end_of_conversation": 39,
+        "max_teacher_turns": 11
+      },
+      "means": {
+        "P": 0.81375,
+        "U": 0.57875,
+        "M": 0.46375,
+        "Ms": 0.6075
+      },
+      "posed_new_problem": 0
+    },
+    "T": {
+      "dialogs": 50,
+      "handover_rate": 0.82,
+      "tutor_turns": 5.6,
+      "blanked_turns": 0.0,
+      "failed_student_calls": 0,
+      "student_calls": 3200,
+      "failed_dialogs": 0,
+      "unboxed_answers": 144,
+      "end_reasons": {
+        "end_of_conversation": 41,
+        "max_teacher_turns": 9
+      },
+      "means": {
+        "P": 0.85875,
+        "U": 0.64,
+        "M": 0.45375,
+        "Ms": 0.5575
+      },
+      "posed_new_problem": 0
+    }
+  },
+  "posed_split": {
+    "T posed a new problem": {
+      "M": null,
+      "U": null
+    },
+    "T did not": {
+      "M": {
+        "n": 50,
+        "mean": 0.1225,
+        "lo": 0.03625,
+        "hi": 0.21,
+        "sd": 0.3196777714371464
+      },
+      "U": {
+        "n": 50,
+        "mean": 0.315,
+        "lo": 0.20125,
+        "hi": 0.42628124999999956,
+        "sd": 0.41858910250350984
+      }
+    }
+  },
+  "contrasts": {
+    "T-N": {
+      "P": {
+        "n": 50,
+        "mean": 0.57375,
+        "lo": 0.46375,
+        "hi": 0.68125,
+        "sd": 0.396430582362982
+      },
+      "U": {
+        "n": 50,
+        "mean": 0.315,
+        "lo": 0.1975,
+        "hi": 0.42753124999999953,
+        "sd": 0.41858910250350984
+      },
+      "M": {
+        "n": 50,
+        "mean": 0.1225,
+        "lo": 0.03375,
+        "hi": 0.2125,
+        "sd": 0.3196777714371464
+      },
+      "Ms": {
+        "n": 50,
+        "mean": 0.2725,
+        "lo": 0.185,
+        "hi": 0.36,
+        "sd": 0.32285398228541495
+      }
+    },
+    "H-N": {
+      "P": {
+        "n": 50,
+        "mean": 0.52875,
+        "lo": 0.435,
+        "hi": 0.6225,
+        "sd": 0.3395698997801994
+      },
+      "U": {
+        "n": 50,
+        "mean": 0.25375,
+        "lo": 0.15125,
+        "hi": 0.3575,
+        "sd": 0.3772065185718047
+      },
+      "M": {
+        "n": 50,
+        "mean": 0.1325,
+        "lo": 0.04,
+        "hi": 0.22753124999999955,
+        "sd": 0.34317321740319
+      },
+      "Ms": {
+        "n": 50,
+        "mean": 0.3225,
+        "lo": 0.23,
+        "hi": 0.41378124999999955,
+        "sd": 0.3353531492231399
+      }
+    }
+  },
+  "pretest": {
+    "problems": 50,
+    "k": 16,
+    "stored_source": 0.28375,
+    "measured_source": 0.23558333333333334,
+    "stored_variant": 0.31875,
+    "measured_variant": 0.3025,
+    "failed_calls": 1,
+    "variant_gap": -0.016249999999999987,
+    "source_gap": -0.04816666666666666,
+    "gate_pass": true
+  },
+  "cost": {
+    "anthropic/claude-haiku-5.5": {
+      "calls": 565,
+      "prompt_tokens": 1320251,
+      "completion_tokens": 350725,
+      "cost_usd": 0.30738759999999987
+    },
+    "meta-llama/llama-3.1-8b-instruct": {
+      "calls": 10300,
+      "prompt_tokens": 15127263,
+      "completion_tokens": 6655403,
+      "cost_usd": 4.792186520000006
+    },
+    "crutch/null-tutor": {
+      "calls": 285,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "cost_usd": 0.0
+    },
+    "qwen/qwen3.6-27b": {
+      "calls": 1200,
+      "prompt_tokens": 2752496,
+      "completion_tokens": 430155,
+      "cost_usd": 1.4398179499999997
+    }
+  },
+  "projection": {
+    "tokens_per_answer": 682.5296875,
+    "usd_per_answer": 0.00048005093125000055,
+    "audit_gpu_hours": 15.288665000000002,
+    "audit_api_usd": 96.7782677400001
+  },
+  "views": {
+    "views": {
+      "M": {
+        "means": {
+          "N": 0.33125,
+          "H": 0.46375,
+          "T": 0.45375
+        },
+        "H-N": {
+          "n": 50,
+          "mean": 0.1325,
+          "lo": 0.04121875000000003,
+          "hi": 0.225,
+          "sd": 0.34317321740319
+        },
+        "T-N": {
+          "n": 50,
+          "mean": 0.1225,
+          "lo": 0.03621875000000003,
+          "hi": 0.20875,
+          "sd": 0.3196777714371464
+        },
+        "P2": false,
+        "P3": true
+      },
+      "C": {
+        "means": {
+          "N": 0.275,
+          "H": 0.4425,
+          "T": 0.42
+        },
+        "H-N": {
+          "n": 50,
+          "mean": 0.1675,
+          "lo": 0.065,
+          "hi": 0.27,
+          "sd": 0.3673627051605227
+        },
+        "T-N": {
+          "n": 50,
+          "mean": 0.145,
+          "lo": 0.0525,
+          "hi": 0.2325,
+          "sd": 0.32670276074369353
+        },
+        "P2": false,
+        "P3": true
+      },
+      "K": {
+        "means": {
+          "N": 0.33625,
+          "H": 0.35375,
+          "T": 0.39625
+        },
+        "H-N": {
+          "n": 50,
+          "mean": 0.0175,
+          "lo": -0.04125,
+          "hi": 0.07875,
+          "sd": 0.21504330365993635
+        },
+        "T-N": {
+          "n": 50,
+          "mean": 0.06,
+          "lo": 0.0025,
+          "hi": 0.12,
+          "sd": 0.21089580559206608
+        },
+        "P2": false,
+        "P3": false
+      },
+      "L": {
+        "means": {
+          "N": 0.35625,
+          "H": 0.36125,
+          "T": 0.33375
+        },
+        "H-N": {
+          "n": 50,
+          "mean": 0.005,
+          "lo": -0.03875,
+          "hi": 0.05003124999999955,
+          "sd": 0.15913910613686638
+        },
+        "T-N": {
+          "n": 50,
+          "mean": -0.0225,
+          "lo": -0.07375,
+          "hi": 0.0275,
+          "sd": 0.1846121140474298
+        },
+        "P2": false,
+        "P3": false
+      }
+    },
+    "split": {
+      "M": {
+        "posed": null,
+        "not_posed": {
+          "n": 50,
+          "mean": 0.1225,
+          "lo": 0.035,
+          "hi": 0.21,
+          "sd": 0.3196777714371464
+        }
+      },
+      "C": {
+        "posed": null,
+        "not_posed": {
+          "n": 50,
+          "mean": 0.145,
+          "lo": 0.055,
+          "hi": 0.2325,
+          "sd": 0.32670276074369353
+        }
+      },
+      "K": {
+        "posed": null,
+        "not_posed": {
+          "n": 50,
+          "mean": 0.06,
+          "lo": 0.00375,
+          "hi": 0.12,
+          "sd": 0.21089580559206608
+        }
+      },
+      "L": {
+        "posed": null,
+        "not_posed": {
+          "n": 50,
+          "mean": -0.0225,
+          "lo": -0.075,
+          "hi": 0.02625,
+          "sd": 0.1846121140474298
+        }
+      }
+    },
+    "diagnostics": {
+      "N_M": {
+        "answers": 800,
+        "cut_off": 0.09,
+        "unboxed": 0.09375,
+        "acc_boxed": 0.36551724137931035
+      },
+      "H_M": {
+        "answers": 800,
+        "cut_off": 0.09,
+        "unboxed": 0.09125,
+        "acc_boxed": 0.5103163686382394
+      },
+      "T_M": {
+        "answers": 800,
+        "cut_off": 0.1,
+        "unboxed": 0.1,
+        "acc_boxed": 0.5041666666666667
+      },
+      "N_C": {
+        "answers": 400,
+        "cut_off": 0.1175,
+        "unboxed": 0.1175,
+        "acc_boxed": 0.311614730878187
+      },
+      "H_C": {
+        "answers": 400,
+        "cut_off": 0.09,
+        "unboxed": 0.095,
+        "acc_boxed": 0.4889502762430939
+      },
+      "T_C": {
+        "answers": 400,
+        "cut_off": 0.1175,
+        "unboxed": 0.1125,
+        "acc_boxed": 0.4732394366197183
+      },
+      "N_K": {
+        "answers": 800,
+        "cut_off": 0.105,
+        "unboxed": 0.1075,
+        "acc_boxed": 0.37675070028011204
+      },
+      "H_K": {
+        "answers": 800,
+        "cut_off": 0.10625,
+        "unboxed": 0.10625,
+        "acc_boxed": 0.3958041958041958
+      },
+      "T_K": {
+        "answers": 800,
+        "cut_off": 0.11375,
+        "unboxed": 0.11125,
+        "acc_boxed": 0.44585091420534456
+      },
+      "N_L": {
+        "answers": 800,
+        "cut_off": 0.1325,
+        "unboxed": 0.12875,
+        "acc_boxed": 0.40889526542324245
+      },
+      "H_L": {
+        "answers": 800,
+        "cut_off": 0.145,
+        "unboxed": 0.1425,
+        "acc_boxed": 0.42128279883381925
+      },
+      "T_L": {
+        "answers": 800,
+        "cut_off": 0.14125,
+        "unboxed": 0.14125,
+        "acc_boxed": 0.388646288209607
+      }
+    },
+    "c_removed": {
+      "N": [
+        0,
+        1495
+      ],
+      "H": [
+        331,
+        2225
+      ],
+      "T": [
+        167,
+        1643
+      ]
+    },
+    "k_notes": {
+      "N": {
+        "words": 71.14,
+        "has_answer": 0.04
+      },
+      "H": {
+        "words": 77.58,
+        "has_answer": 0.06
+      },
+      "T": {
+        "words": 75.38,
+        "has_answer": 0.08
+      }
+    },
+    "learner": {
+      "lr": 0.1,
+      "arms": {
+        "N": {
+          "median_train_tokens": 535.0,
+          "median_loss_drop": 0.40206426247108007,
+          "vs_frozen": {
+            "variant": {
+              "n": 50,
+              "mean": 0.01625,
+              "lo": -0.02375,
+              "hi": 0.05625,
+              "sd": 0.1482304208084873
+            },
+            "same": {
+              "n": 50,
+              "mean": -0.0275,
+              "lo": -0.0875,
+              "hi": 0.03,
+              "sd": 0.21172578048610186
+            },
+            "unrelated": {
+              "n": 50,
+              "mean": -0.0425,
+              "lo": -0.11,
+              "hi": 0.0225,
+              "sd": 0.24171211160791917
+            }
+          }
+        },
+        "H": {
+          "median_train_tokens": 761.0,
+          "median_loss_drop": 0.41676354457914333,
+          "vs_frozen": {
+            "variant": {
+              "n": 50,
+              "mean": 0.02125,
+              "lo": -0.025,
+              "hi": 0.06625,
+              "sd": 0.1654124791704245
+            },
+            "same": {
+              "n": 50,
+              "mean": -0.0575,
+              "lo": -0.1125,
+              "hi": -0.005,
+              "sd": 0.19918520250751356
+            },
+            "unrelated": {
+              "n": 50,
+              "mean": -0.03,
+              "lo": -0.095,
+              "hi": 0.0325,
+              "sd": 0.23359436322525476
+            }
+          }
+        },
+        "T": {
+          "median_train_tokens": 569.5,
+          "median_loss_drop": 0.3763680125571704,
+          "vs_frozen": {
+            "variant": {
+              "n": 50,
+              "mean": -0.00625,
+              "lo": -0.0475,
+              "hi": 0.03625,
+              "sd": 0.15165435492377705
+            },
+            "same": {
+              "n": 50,
+              "mean": -0.06,
+              "lo": -0.125,
+              "hi": 0.005,
+              "sd": 0.23452078799117146
+            },
+            "unrelated": {
+              "n": 50,
+              "mean": 0.0225,
+              "lo": -0.03,
+              "hi": 0.0725,
+              "sd": 0.18675873883332003
+            }
+          }
+        }
+      },
+      "P4": {
+        "T-N": {
+          "n": 50,
+          "mean": 0.065,
+          "lo": -0.005,
+          "hi": 0.1325,
+          "sd": 0.2503059352562176
+        },
+        "pass": false
+      },
+      "tokens_vs_gain_spearman": -0.034417696810719635
+    },
+    "cost_usd": 1.1595000999999974
+  }
+}
