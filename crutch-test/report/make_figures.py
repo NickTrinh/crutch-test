@@ -110,11 +110,12 @@ def slide_effects(report: dict, extra: dict | None, path: Path) -> None:
     m, se = HUMAN["T-N"]
     views = report["views"]["views"]
     data = [("Human trial", INK, "D", {"mean": m, "lo": m - 1.96 * se, "hi": m + 1.96 * se})]
+    # Plain meaning first, the paper's letter after, so the talk needs no legend.
     data += [(label, FROZEN, "o", views[v]["T-N"])
-             for v, label in (("M", "M: own turns"), ("C", "C: minus copied"), ("K", "K: one note"))]
-    data.append((f"L: LoRA, lr {report['views']['learner']['lr']:g}", LEARNING, "o", views["L"]["T-N"]))
+             for v, label in (("M", "Own turns (M)"), ("C", "Copy removed (C)"), ("K", "Short note (K)"))]
+    data.append((f"Learns, lr {report['views']['learner']['lr']:g} (L)", LEARNING, "o", views["L"]["T-N"]))
     if extra is not None:
-        data.append((f"L: LoRA, lr {extra['views']['learner']['lr']:g}", LEARNING, "s",
+        data.append((f"Learns, lr {extra['views']['learner']['lr']:g} (L)", LEARNING, "s",
                      extra["views"]["views"]["L"]["T-N"]))
     # The deck's text is sans-serif; the paper's figures stay serif.
     with plt.rc_context({"font.family": "sans-serif", "font.sans-serif": ["Segoe UI", "DejaVu Sans"]}):
@@ -123,7 +124,7 @@ def slide_effects(report: dict, extra: dict | None, path: Path) -> None:
         ax.axvline(0, color=BASE, lw=1.2, zorder=1)
         ax.axvline(-P_MARGIN, color=MUTED, lw=1, ls=(0, (3, 2)), zorder=1)
         # Above the top row, where nothing else is drawn.
-        ax.text(-P_MARGIN - 0.008, len(data) - 0.55, "$\\mathcal{G}_2$ margin", ha="right", va="bottom",
+        ax.text(-P_MARGIN - 0.008, len(data) - 0.55, "pass line", ha="right", va="bottom",
                 fontsize=8, color=MUTED)
         for y, (_, color, marker, e) in zip(ys, data):
             ax.plot([e["lo"], e["hi"]], [y, y], color=color, lw=2.4, solid_capstyle="round", zorder=2)
@@ -138,7 +139,7 @@ def slide_effects(report: dict, extra: dict | None, path: Path) -> None:
         ax.grid(axis="x", color=GRID, lw=0.6)
         ax.set_axisbelow(True)
         ax.spines[["top", "right"]].set_visible(False)
-        ax.set_xlabel("Answers vs. no AI: T $-$ N (95% CI)", fontsize=9, color=INK2)
+        ax.set_xlabel("Answers minus no AI (95% CI)", fontsize=9, color=INK2)
         fig.savefig(path.with_suffix(".png"), dpi=300, bbox_inches="tight")
         plt.close(fig)
 

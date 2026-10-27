@@ -169,6 +169,8 @@ It also reports cut-off and unboxed answers per arm from the answer log.
 
 ### Pass rules with Holm's correction
 
+The write-up calls these pass rules gates: P1–P4 here are G1–G4 there.
+
 The report ends with a scorecard. It lists P1 (practice up), P2, P3 and P4 (L's drift check) for every test view (U, M, C, K, L), with the unadjusted and the Holm-corrected verdicts side by side, as the proposal promises.
 - Each view is one family, corrected over P1-P3.
 - The p-values come from the bootstrap's own resamples: twice the share of resampled means past the rule's boundary. So p < 0.05 matches the interval verdict, and no interval moves.
