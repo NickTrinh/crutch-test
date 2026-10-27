@@ -4,7 +4,8 @@ The Crutch Test write-up, in an ICLR-style template: Introduction, Related work,
 
 | File | What |
 |---|---|
-| `main.tex` | The report |
+| `Trinh Van Minh Nhat - The Crutch Test.pdf` | The compiled report (7 pages) |
+| `main.tex` | The report's source |
 | `iclr_bib.bib` | 26 references, generated from arXiv API and Crossref records |
 | `figures/effects.{pdf,png}` | T − N and H − N for every simulator against the human trial, with 95% CIs |
 | `figures/workflow.{pdf,png}` | The protocol, from problem to gates |
