@@ -134,6 +134,7 @@ The report also prints the first look at the research question. That is M: T - N
 | `learner_grade.py` | Grades the Modal outputs into views L and base_L for `analyze.py` |
 | `report/` | The write-up: LaTeX source and figures |
 | `mock_openrouter.py` | $0 stand-in server; it also logs what the student saw at each post-test |
+| `demo/build_data.py`, `demo/index.html` | The dialog explorer: the script builds `demo/data.json` from a graded run and checks its averages against the report; the page is served by GitHub Pages from the public repo's `docs/` |
 
 ## Fixes to EduardoRL, applied at runtime (no fork)
 

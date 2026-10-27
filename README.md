@@ -4,6 +4,8 @@ Tutoring models built on large language models (LLMs) are increasingly trained w
 
 The Crutch Test runs a student simulator through the trial's three conditions: no AI, hints, and answers. The simulated student then takes a test on a new variant of each problem, without help. Each condition is compared with no AI, problem by problem, and the differences are checked against pass gates set from the trial. The write-up is in [`crutch-test/report/`](crutch-test/report/).
 
+**Demo:** the [dialog explorer](https://nicktrinh.github.io/crutch-test/) shows each pilot problem's three dialogs side by side, what each simulated student carried into the test, and its scores.
+
 ![Score on the new variant, answers minus no AI and hints minus no AI, for the human trial and each simulator](crutch-test/report/figures/effects.png)
 
 ## Pilot results
