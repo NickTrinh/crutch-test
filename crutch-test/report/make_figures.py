@@ -102,6 +102,47 @@ def effects(data: list[dict], path: Path) -> None:
     plt.close(fig)
 
 
+def slide_effects(report: dict, extra: dict | None, path: Path) -> None:
+    """T - N alone, with short labels and large type, for the results slide of the 2-minute talk.
+
+    Sized to sit under the slide's title at about 3.6 in wide, so the text stays near 11 pt there.
+    """
+    m, se = HUMAN["T-N"]
+    views = report["views"]["views"]
+    data = [("Human trial", INK, "D", {"mean": m, "lo": m - 1.96 * se, "hi": m + 1.96 * se})]
+    data += [(label, FROZEN, "o", views[v]["T-N"])
+             for v, label in (("M", "M: own turns"), ("C", "C: minus copied"), ("K", "K: one note"))]
+    data.append((f"L: LoRA, lr {report['views']['learner']['lr']:g}", LEARNING, "o", views["L"]["T-N"]))
+    if extra is not None:
+        data.append((f"L: LoRA, lr {extra['views']['learner']['lr']:g}", LEARNING, "s",
+                     extra["views"]["views"]["L"]["T-N"]))
+    # The deck's text is sans-serif; the paper's figures stay serif.
+    with plt.rc_context({"font.family": "sans-serif", "font.sans-serif": ["Segoe UI", "DejaVu Sans"]}):
+        fig, ax = plt.subplots(figsize=(2.3, 3.0))
+        ys = list(range(len(data)))[::-1]
+        ax.axvline(0, color=BASE, lw=1.2, zorder=1)
+        ax.axvline(-P_MARGIN, color=MUTED, lw=1, ls=(0, (3, 2)), zorder=1)
+        # Above the top row, where nothing else is drawn.
+        ax.text(-P_MARGIN - 0.008, len(data) - 0.55, "$\\mathcal{G}_2$ margin", ha="right", va="bottom",
+                fontsize=8, color=MUTED)
+        for y, (_, color, marker, e) in zip(ys, data):
+            ax.plot([e["lo"], e["hi"]], [y, y], color=color, lw=2.4, solid_capstyle="round", zorder=2)
+            ax.plot(e["mean"], y, marker=marker, ms=8, color=color, mec="white", mew=1, zorder=3)
+            ax.text(e["hi"] + 0.015, y, f"{e['mean']:+.3f}", va="center", fontsize=9, color=INK2)
+        ax.set_yticks(ys, [d[0] for d in data], fontsize=10)
+        ax.set_xticks([-0.1, 0, 0.1, 0.2, 0.3])
+        ax.tick_params(axis="y", length=0)
+        ax.tick_params(axis="x", labelsize=9)
+        ax.set_xlim(-0.12, 0.37)
+        ax.set_ylim(-0.6, len(data) - 0.1)
+        ax.grid(axis="x", color=GRID, lw=0.6)
+        ax.set_axisbelow(True)
+        ax.spines[["top", "right"]].set_visible(False)
+        ax.set_xlabel("Answers vs. no AI: T $-$ N (95% CI)", fontsize=9, color=INK2)
+        fig.savefig(path.with_suffix(".png"), dpi=300, bbox_inches="tight")
+        plt.close(fig)
+
+
 def workflow(path: Path) -> None:
     fig, ax = plt.subplots(figsize=(6.5, 2.1))
     ax.set_xlim(0, 100)
@@ -142,13 +183,16 @@ def main() -> None:
     ap.add_argument("--report", default=str(RESULTS / "pilot50v2.json"))
     ap.add_argument("--extra-l", default=None, help="another analyze.py report whose L row to add")
     ap.add_argument("--extra-label", default="lr 0.03")
+    ap.add_argument("--slide", action="store_true", help="also write figures/slide_effects.png for the talk")
     args = ap.parse_args()
     report = json.loads(Path(args.report).read_text(encoding="utf-8"))
     extra = json.loads(Path(args.extra_l).read_text(encoding="utf-8")) if args.extra_l else None
     OUT.mkdir(parents=True, exist_ok=True)
     effects(rows(report, extra, args.extra_label), OUT / "effects")
     workflow(OUT / "workflow")
-    print(f"wrote effects and workflow figures to {OUT}")
+    if args.slide:
+        slide_effects(report, extra, OUT / "slide_effects")
+    print(f"wrote {'effects, workflow and slide' if args.slide else 'effects and workflow'} figures to {OUT}")
 
 
 if __name__ == "__main__":
